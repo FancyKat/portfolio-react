@@ -1,7 +1,7 @@
 import ArticlePage from './ArticlePage'
 
 export const generated = () => {
-  return <ArticlePage id={1} />
+  return <ArticlePage />
 }
 
 export default { title: 'Pages/ArticlePage' }

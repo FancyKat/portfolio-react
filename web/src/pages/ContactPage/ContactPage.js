@@ -1,16 +1,15 @@
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags, useMutation } from '@redwoodjs/web'
+import { toast, Toaster } from '@redwoodjs/web/toast'
 import {
+  FieldError,
   Form,
+  FormError,
+  Label,
   TextField,
   TextAreaField,
   Submit,
-  FieldError,
-  Label,
-  FormError,
   useForm,
 } from '@redwoodjs/forms'
-import { useMutation } from '@redwoodjs/web'
-import { toast, Toaster } from '@redwoodjs/web/toast'
 
 const CREATE_CONTACT = gql`
   mutation CreateContactMutation($input: CreateContactInput!) {
@@ -21,7 +20,7 @@ const CREATE_CONTACT = gql`
 `
 
 const ContactPage = () => {
-  const formMethods = useForm()
+  const formMethods = useForm({ mode: 'onBlur' })
 
   const [create, { loading, error }] = useMutation(CREATE_CONTACT, {
     onCompleted: () => {
@@ -32,46 +31,32 @@ const ContactPage = () => {
 
   const onSubmit = (data) => {
     create({ variables: { input: data } })
-    console.log(data)
   }
 
   return (
     <>
       <MetaTags title="Contact" description="Contact page" />
 
-      <Toaster />
+      <Toaster toastOptions={{ duration: 100000 }} />
       <Form
         onSubmit={onSubmit}
         config={{ mode: 'onBlur' }}
         error={error}
         formMethods={formMethods}
       >
-        <FormError
-          error={error}
-          wrapperClassName="py-4 px-6 rounded-lg bg-red-100 text-red-700"
-          listClassName="list-disc ml-4"
-          listItemClassName=""
-        />
-        <Label
-          name="name"
-          className="block text-gray-700 uppercase text-sm"
-          errorClassName="block uppercase text-sm text-red-700"
-        >
+        <FormError error={error} wrapperClassName="form-error" />
+
+        <Label name="name" errorClassName="error">
           Name
         </Label>
         <TextField
           name="name"
           validation={{ required: true }}
-          className="border rounded-sm px-2 py-1 outline-none"
-          errorClassName="border rounded-sm px-2 py-1 border-red-700 outline-none"
+          errorClassName="error"
         />
-        <FieldError name="name" className="block text-red-700" />
+        <FieldError name="name" className="error" />
 
-        <Label
-          name="email"
-          className="block mt-8 text-gray-700 uppercase text-sm"
-          errorClassName="block mt-8 text-red-700 uppercase text-sm"
-        >
+        <Label name="email" errorClassName="error">
           Email
         </Label>
         <TextField
@@ -79,36 +64,25 @@ const ContactPage = () => {
           validation={{
             required: true,
             pattern: {
-              value: /[^@]+@[^.]+\..+/,
+              value: /^[^@]+@[^.]+\..+$/,
               message: 'Please enter a valid email address',
             },
           }}
-          className="border rounded-sm px-2 py-1"
-          errorClassName="border rounded-sm px-2 py-1 border-red-700 outline-none"
+          errorClassName="error"
         />
-        <FieldError name="email" className="block text-red-700" />
+        <FieldError name="email" className="error" />
 
-        <Label
-          name="message"
-          className="block mt-8 text-gray-700 uppercase text-sm"
-          errorClassName="block mt-8 text-red-700 uppercase text-sm"
-        >
+        <Label name="message" errorClassName="error">
           Message
         </Label>
         <TextAreaField
           name="message"
           validation={{ required: true }}
-          className="block border rounded-sm px-2 py-1"
-          errorClassName="block border rounded-sm px-2 py-1 border-red-700 outline-none"
+          errorClassName="error"
         />
-        <FieldError name="message" className="block text-red-700" />
+        <FieldError name="message" className="error" />
 
-        <Submit
-          className="block bg-blue-700 text-white mt-8 px-4 py-2 rounded"
-          disabled={loading}
-        >
-          Save
-        </Submit>
+        <Submit disabled={loading}>Save</Submit>
       </Form>
     </>
   )

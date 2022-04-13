@@ -1,40 +1,25 @@
-import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
-import { db } from './db'
-
-export const getCurrentUser = async (session) => {
-  return await db.user.findUnique({
-    where: { id: session.id },
-    select: { id: true, email: true, roles: true },
-  })
-}
-
+/**
+ * Once you are ready to add authentication to your application
+ * you'll build out requireAuth() with real functionality. For
+ * now we just return `true` so that the calls in services
+ * have something to check against, simulating a logged
+ * in user that is allowed to access that service.
+ *
+ * See https://redwoodjs.com/docs/authentication for more info.
+ */
 export const isAuthenticated = () => {
-  return !!context.currentUser
-}
-
-export const hasRole = ({ roles }) => {
-  if (!isAuthenticated()) {
-    return false
-  }
-
-  if (roles) {
-    if (Array.isArray(roles)) {
-      // return context.currentUser.roles?.some((r) => roles.includes(r))
-    }
-    if (typeof roles === 'string') {
-      // return context.currentUser.roles?.includes(roles)
-    }
-    return false
-  }
   return true
 }
 
-export const requireAuth = ({ roles }) => {
-  if (!isAuthenticated()) {
-    throw new AuthenticationError("You don't have permission to do that.")
-  }
+export const hasRole = ({ roles }) => {
+  return roles !== undefined
+}
 
-  if (!hasRole({ roles })) {
-    throw new ForbiddenError("You don't have access to do that.")
-  }
+// This is used by the redwood directive
+// in ./api/src/directives/requireAuth
+
+// Roles are passed in by the requireAuth directive if you have auth setup
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const requireAuth = ({ roles }) => {
+  return isAuthenticated()
 }

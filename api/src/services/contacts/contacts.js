@@ -13,10 +13,7 @@ export const contact = ({ id }) => {
 
 export const createContact = ({ input }) => {
   validate(input.email, 'email', { email: true })
-
-  return db.contact.create({
-    data: input,
-  })
+  return db.contact.create({ data: input })
 }
 
 export const updateContact = ({ id, input }) => {
