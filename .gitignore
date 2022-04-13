@@ -18,7 +18,8 @@ api/types/graphql.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
+.envs/
+.env.production
 
 # Deployment
 .serverless
