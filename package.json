@@ -1,62 +1,33 @@
 {
-  "name": "portfolio_v0.8.0",
+  "name": "gericht",
   "version": "0.1.0",
-  "homepage": "https://paulomartin.com",
-  "description": "Portfolio site for Paulo Martin",
-  "repository": "https://github.com/FancyKat/portfolio-react",
-  "author": "Paulo Martin <fancykatbase@gmail.com>",
-  "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@storybook/addon-a11y": "^6.4.20",
-    "@storybook/addon-actions": "^6.4.20",
-    "@storybook/addon-controls": "^6.4.20",
-    "@storybook/addon-toolbars": "^6.4.20",
-    "@storybook/builder-webpack5": "^6.4.20",
-    "@storybook/manager-webpack5": "^6.4.20",
-    "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.4.20",
-    "mdx-loader": "^3.0.2",
-    "postcss": "^8.4.12",
-    "prettier": "^2.2.1",
-    "react-snap": "1.23.0",
-    "source-map-explorer": "^2.5.1",
-    "stylelint": "^14.6.1",
-    "stylelint-config-standard": "^25.0.0",
-    "webpack": "^5.72.0"
-  },
+  "private": true,
   "dependencies": {
-    "@hamishmw/react-scripts-postcss": "^5.0.0-mod1",
-    "@mdx-js/react": "^2.1.1",
-    "popmotion": "^8.7.5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0",
-    "react-router-dom": "^6.3.0",
-    "react-transition-group": "^4.4.2",
-    "three": "^0.139.2"
+    "react-icons": "^4.3.1",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:storybook": "build-storybook -o build-storybook",
-    "postbuild": "react-snap",
-    "deploy": "aws s3 sync --delete build/ s3://paulomartin.com",
-    "deploy:storybook": "aws s3 sync --delete build-storybook s3://paulo-portfolio-storybook",
-    "test": "echo 'write some tests'",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "reactSnap": {
-    "skipThirdPartyRequests": true,
-    "headless": true,
-    "crawl": true
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
-      ">10%",
+      ">0.2%",
       "not dead",
-      "not ie 11",
       "not op_mini all"
     ],
     "development": [
@@ -64,5 +35,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

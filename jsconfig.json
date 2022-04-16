@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": "src",
-    "module": "commonjs"
-  },
-  "include": ["src", "portfolio_V0.1.0/.storybook/StoryContainer.js", "public"]
-}
